@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UserData //애를 컴포넌트로 사용하겠따 , mono를 상속받는 클래스 awake - TIL
+[System.Serializable]
+public class UserData 
 {
     //변수 선언
     public string Username; //이름
