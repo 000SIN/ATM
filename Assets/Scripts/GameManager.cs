@@ -22,19 +22,31 @@ public class GameManager : MonoBehaviour
     public GameObject errorPopup;  // 잔액 부족 시 표시할 팝업
 
     //생성자를 통해 이름과 현금, 통장 잔액 데이터 넣기
-    public void Awake()
-    {
-        if (Instance == null) //만약 객체가 null이라면
-        {
-            Instance = this; //객체는 이것을 사용할 것
-        }
-        
-        else
-            Destroy(gameObject); //이미 Instance가 존재하면 새로운건 삭제
 
-        //userData = new UserData(name, cash, BankBalance); 형태인것
-        userData = new UserData("sung", 50000, 30000);
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        // 저장된 데이터가 있을 경우에만 로드
+        if (PlayerPrefs.HasKey("BankBalance") && PlayerPrefs.HasKey("Cash"))
+        {
+            userData.LoadUserData();
+        }
+        else
+        {
+            // 저장된 데이터가 없으면 기본 값 설정
+            userData = new UserData("sung", 50000, 30000);
+        }
     }
+
 
     public void Start()
     {
@@ -50,6 +62,10 @@ public class GameManager : MonoBehaviour
         //{0:N0} = 앞에 0은 첫번째 인수를 참조한다는 뜻 / N은 천단위 소수점, 0은 소수점 위에 허용가능한 숫자가 0개라는 거
     }
 
+    private void OnApplicationQuit()
+    {
+        userData.SaveUserData();
+    }
 
 
 }

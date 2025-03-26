@@ -70,6 +70,8 @@ public class PopupBank : MonoBehaviour
         GameManager.Instance.userData.BankBalance -= getMoney;
         GameManager.Instance.userData.Cash += getMoney;
         GameManager.Instance.Refresh();
+
+
     }
 
     public void Withdraw_Btn()

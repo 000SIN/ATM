@@ -26,6 +26,21 @@ public class UserData
         BankBalance = bankBalance;
     }
 
+    // UserData 클래스에 저장 및 로드 기능 추가
+    public void LoadUserData()
+    {
+        Username = PlayerPrefs.GetString("Username", "Unknown");
+        Cash = PlayerPrefs.GetFloat("Cash", 0f);// Cash에저장된 값이 없으면, cash는 0f로 설정됨
+        BankBalance = PlayerPrefs.GetFloat("BankBalance", 0f); //BankBalance도 이하동문
+    }
+
+    public void SaveUserData()
+    {
+        PlayerPrefs.SetString("Username", Username);
+        PlayerPrefs.SetFloat("Cash", Cash);
+        PlayerPrefs.SetFloat("BankBalance", BankBalance);
+        PlayerPrefs.Save(); // 변경사항을 저장
+    }
 
 
 }
